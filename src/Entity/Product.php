@@ -6,7 +6,18 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+
+#[ApiResource(security: "is_granted('ROLE_USER')")]
+#[Get]
+#[Put(security: "is_granted('ROLE-ADMIN')")]
+#[Delete(security: "is_granted('ROLE-ADMIN')")]
+#[GetCollection]
+#[Post(security: "is_granted('ROLE-ADMIN')")]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
